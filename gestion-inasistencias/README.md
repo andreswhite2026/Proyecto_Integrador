@@ -1,54 +1,40 @@
-# Gestión de Inasistencias Justificadas · Riwi
+# Excused Absence Management System · Riwi
 
-MVP de interfaz (login + módulo del coder + módulo de Habilidades Socioemocionales/admin).
-Construido con **Vite + Vanilla JS + TailwindCSS v4**, siguiendo la misma arquitectura del
-sistema de reservas: MVC por carpetas (`views`, `controllers`, `services`, `components`),
-enrutamiento por History API con guards de rol, y `json-server` como backend simulado.
+Interface MVP (login + coder module + Socioemotional Skills/admin module).
+Built with **Vite + Vanilla JS + TailwindCSS v4**, following the same architecture as the 
+reservation system: folder-based MVC (`views`, `controllers`, `services`, `components`), 
+History API routing with role guards, and `json-server` as a simulated backend.
 
-## Cómo correrlo
+## Getting Started
 
 ```bash
 npm install
 npm run dev
 ```
 
-Esto levanta al mismo tiempo:
-- El cliente Vite en `http://localhost:5173`
-- `json-server` en `http://localhost:3000` (usa `db.json`)
+This spins up both services simultaneously:
+- The Vite client at `http://localhost:5173`
+- `json-server` at `http://localhost:3000` (uses `db.json`)
 
-## Usuarios de prueba
+## Test Credentials
 
-| Rol | Correo | Contraseña |
+| Role | Email | Password |
 |---|---|---|
 | Coder | juan.coder@riwi.io | Coder123* |
 | Coder | maria.coder@riwi.io | Coder123* |
-| Habilidades Socioemocionales (admin) | soc@riwi.io | Socio123* |
-| Team Leader (aún sin vista propia) | team.leader@riwi.io | Leader123* |
+| Socioemotional Advisor (admin) | soc@riwi.io | Socio123* |
+| Team Leader (no dedicated view yet) | team.leader@riwi.io | Leader123* |
 
-## Qué incluye esta primera entrega
+## What's Included in This First Release
 
-- **Login / Registro** en tabs: puedes iniciar sesión o crear una cuenta nueva eligiendo
-  el tipo (Coder o Habilidades Socioemocionales). El registro valida que el correo no
-  exista, guarda al usuario en `db.json` (vía `json-server`) y abre sesión automáticamente
-  con el rol elegido. Al cerrar sesión, el usuario puede volver a entrar cuando quiera con
-  su correo y contraseña, ya que queda guardado de forma persistente en `db.json`.
-- **Módulo del coder**: formulario para registrar una inasistencia (fecha, motivo,
-  descripción, adjuntar soporte) + historial de "Mis solicitudes" con su estado
-  (Pendiente / En revisión / Aprobada / Rechazada) y observaciones cuando aplica.
-- **Módulo administrativo (Habilidades Socioemocionales)**: dashboard con tarjetas de
-  estadísticas (total, pendientes, en revisión, aprobadas, rechazadas), ausencias por
-  mes, motivos más frecuentes, coders con más ausencias, y una tabla de solicitudes con
-  un modal para abrir el soporte, marcar en revisión, aprobar o rechazar dejando
-  observaciones.
-- Espacios reservados en el sidebar del admin para **Gestión de usuarios, Sedes y
-  Programas** (marcados como "Próximamente"): la interfaz ya tiene el lugar listo para
-  cuando conectemos esa funcionalidad.
+- **Login / Register Tabs**: Users can log in or create a new account by selecting their role (Coder or Socioemotional Advisor). The registration process validates that the email does not exist, saves the user persistently to `db.json` (via `json-server`), and automatically establishes a session with the chosen role. Upon logging out, users can sign back in anytime using their email and password.
+- **Coder Module**: Form to log an absence (date, reason, description, attachment/support link) + "My Requests" history showing real-time status (Pending / Under Review / Approved / Rejected) along with feedback notes when applicable.
+- **Administrative Module (Socioemotional Advisor)**: Dashboard tracking statistical cards (total, pending, under review, approved, rejected), absences per month, most frequent reasons, and coders with highest absence counts. It features a requests table with a modal window to review supporting documentation, update status, and attach performance notes.
+- **Admin Sidebar Placeholders**: Reserved spaces for **User, Campus, and Program Management** (marked as "Coming Soon") ensuring the interface layout is ready for upcoming features.
 
-## Pendiente para siguientes iteraciones
+## Future Iterations / Roadmap
 
-- Vista propia del Team Leader (solo consulta, sin permisos de decisión).
-- CRUD real de usuarios, sedes y programas para el admin.
-- Subida real de archivos (hoy solo se guarda el nombre del archivo seleccionado,
-  ya que `json-server` no almacena binarios).
-- Validaciones más robustas y manejo de permisos en el backend (hoy todo el control
-  de acceso vive en el frontend, como en el proyecto de reservas).
+- Dedicated view for Team Leaders (read-only access, no approval permissions).
+- Core CRUD operations for users, campuses, and programs inside the admin module.
+- Cloud document handling (currently tracking file names only, as `json-server` does not store binary media assets).
+- Robust validation rules and strict authorization controls on the backend (currently following client-side guard protocols, similar to the reservation project).
