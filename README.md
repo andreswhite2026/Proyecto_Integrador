@@ -170,6 +170,51 @@ Restricted to authorized administrative roles. Other roles return a `403 Forbidd
 
 ---
 
+## User Stories & Feature Scope
+
+This section details the functional scope of the MVP, written in standard Agile formats with their respective acceptance criteria.
+
+### 1. Submit Absence Request (Coder)
+*   **User Story:** As a Coder, I want to submit an absence request by uploading a photo of my justification, selecting the date, and adding a description, so that my Team Leader or Advisor can review and validate my absence.
+
+**Acceptance Criteria:**
+*   **Given:** The Coder is logged into their dashboard.
+*   **When:** They fill out the form with a valid date, category, description, upload the support link or image, and click "Submit".
+*   **Then:** The system saves the request with a default status of Pending.
+
+---
+
+### 2. Track Personal Requests (Coder)
+*   **User Story:** As a Coder, I want to view a history of all my submitted absence requests alongside their live status and notes, so that I can track whether my absences have been approved, rejected, or are still under review.
+
+**Acceptance Criteria:**
+*   **Given:** The Coder is on the My Requests module.
+*   **When:** The personal dashboard loads.
+*   **Then:** The system fetches and displays only the requests belonging to that specific user.
+
+---
+
+### 3. Review and Update Absence Status (Admin / TL)
+*   **User Story:** As a Socioemotional Advisor or Team Leader, I want to view all submitted absence requests in a centralized table and update their status with custom feedback, so that I can process justifications and maintain control over overall team attendance.
+
+**Acceptance Criteria:**
+*   **Given:** The user is logged in with an administrative role (Habilidades Socioemocionales).
+*   **When:** They open a request, view the support, change status to Approved or Rejected, write feedback, and click save.
+*   **Then:** The system updates the status in the database and links the unique ID of the reviewer.
+
+---
+
+### 4. View Statistical Dashboard (Admin / TL)
+*   **User Story:** As a Socioemotional Advisor or Team Leader, I want to view high-level statistical charts and metric cards regarding monthly absences and frequent reasons, so that I can identify attendance patterns and prevent user burnout or dropouts proactively.
+
+**Acceptance Criteria:**
+*   **Given:** The administrator is on the main dashboard.
+*   **When:** The screen loads completely.
+*   **Then:** The system displays statistical counters (Total, Pending, Approved, Rejected) and charts detailing absences grouped by month and categories.
+
+
+---
+
 ##  Roadmap / Next Steps
 *   **Bridge Integration**: Connect the native vanilla JavaScript `fetch` API commands from the frontend to the live FastAPI services (Migrating away from `json-server`).
 *   **Cloud Document Handling**: Integrate cloud storage (e.g., AWS S3) to process actual uploaded image files (`UploadFile`) instead of tracking mock string names.
