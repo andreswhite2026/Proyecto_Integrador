@@ -1,0 +1,131 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Juan Pérez",
+      "email": "juan.coder@riwi.io",
+      "password": "Coder123*",
+      "role": "coder",
+      "clan": "Cumbia"
+    },
+    {
+      "id": "2",
+      "name": "María Gómez",
+      "email": "maria.coder@riwi.io",
+      "password": "Coder123*",
+      "role": "coder",
+      "clan": "Cumbia"
+    },
+    {
+      "id": "3",
+      "name": "Laura Ramírez",
+      "email": "team.leader@riwi.io",
+      "password": "Leader123*",
+      "role": "team_leader",
+      "clan": "Cumbia"
+    },
+    {
+      "id": "4",
+      "name": "Ana Torres",
+      "email": "soc@riwi.io",
+      "password": "Socio123*",
+      "role": "admin"
+    }
+  ],
+  "solicitudes": [
+    {
+      "id": "1",
+      "coderId": "1",
+      "coderName": "Juan Pérez",
+      "clan": "Cumbia",
+      "fecha": "2026-07-02",
+      "motivo": "Cita médica (EPS / IPS)",
+      "descripcion": "Cita de control médico programada por la EPS en horario de la mañana.",
+      "archivoNombre": "soporte_cita_medica.pdf",
+      "estado": "aprobada",
+      "observaciones": "Soporte válido, queda aprobada.",
+      "fechaCreacion": "2026-07-01T14:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "coderId": "1",
+      "coderName": "Juan Pérez",
+      "clan": "Cumbia",
+      "fecha": "2026-07-10",
+      "motivo": "Problema de transporte",
+      "descripcion": "Paro de transporte en la zona donde vivo, no pude llegar a tiempo.",
+      "archivoNombre": null,
+      "estado": "rechazada",
+      "observaciones": "No se adjuntó soporte que valide la situación.",
+      "fechaCreacion": "2026-07-10T09:30:00.000Z"
+    },
+    {
+      "id": "3",
+      "coderId": "2",
+      "coderName": "María Gómez",
+      "clan": "Cumbia",
+      "fecha": "2026-07-14",
+      "motivo": "Calamidad doméstica",
+      "descripcion": "Situación familiar de fuerza mayor que requirió mi atención presencial.",
+      "archivoNombre": "carta_calamidad.pdf",
+      "estado": "en_revision",
+      "observaciones": "",
+      "fechaCreacion": "2026-07-14T08:15:00.000Z"
+    },
+    {
+      "id": "4",
+      "coderId": "2",
+      "coderName": "María Gómez",
+      "clan": "Cumbia",
+      "fecha": "2026-07-15",
+      "motivo": "Incapacidad médica",
+      "descripcion": "Incapacidad de un día por gripe fuerte, adjunto certificado médico.",
+      "archivoNombre": "incapacidad.pdf",
+      "estado": "en_revision",
+      "observaciones": "",
+      "fechaCreacion": "2026-07-15T07:50:00.000Z"
+    },
+    {
+      "id": "5",
+      "coderId": "1",
+      "coderName": "Juan Pérez",
+      "clan": "Cumbia",
+      "fecha": "2026-06-20",
+      "motivo": "Diligencia personal o legal",
+      "descripcion": "Trámite personal en notaría que solo podía realizar en ese horario.",
+      "archivoNombre": "soporte_notaria.jpg",
+      "estado": "pendiente",
+      "observaciones": "",
+      "fechaCreacion": "2026-07-16T10:05:00.000Z"
+    }
+  ],
+  "sedes": [
+    {
+      "id": "1",
+      "nombre": "Riwi Medellín",
+      "ciudad": "Medellín",
+      "direccion": "Cra 46 # 56-11"
+    },
+    {
+      "id": "2",
+      "nombre": "Riwi Cali",
+      "ciudad": "Cali",
+      "direccion": "Av 6N # 28N-11"
+    }
+  ],
+  "programas": [
+    {
+      "id": "1",
+      "nombre": "Desarrollo de Software",
+      "sedeId": "1",
+      "descripcion": "Programa de formación en desarrollo full-stack."
+    },
+    {
+      "id": "2",
+      "nombre": "Analítica de Datos",
+      "sedeId": "2",
+      "descripcion": "Programa de formación en datos e IA."
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
