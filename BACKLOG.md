@@ -1,4 +1,4 @@
-# Backlog del Producto — Gestión de Inasistencias Justificadas (Riwi)
+# Backlog del Producto — Gestión de Inasistencias Justificadas (AFK CODER)
 
 **Proyecto:** Gestión de Inasistencias Justificadas
 **Metodología:** Priorización MoSCoW (Must have / Should have / Could have / Won't have)
