@@ -53,7 +53,7 @@ def obtener_todas_las_solicitudes():
         cur = conn.cursor()
         cur.execute(
             """SELECT s.id, u.nombre AS coder_name, c.nombre AS categoria, 
-                      s.fecha_ausencia, s.motivo_detallado, s.url_soporte, s.estado, s.observaciones
+                      s.fecha_ausencia, s.motivo_detallado, s.url_soporte, s.estado, s.observaciones_socioemocional
                FROM solicitudes_inasistencia s
                JOIN usuarios u ON s.coder_id = u.id
                JOIN categorias_justificacion c ON s.categoria_id = c.id
@@ -66,7 +66,7 @@ def obtener_todas_las_solicitudes():
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error al obtener solicitudes: {str(e)}")
 
-# 3. Procesar Solicitud (Solo permitido para Habilidades Socioemocionales
+# 3. Procesar Solicitud (Solo permitido para Habilidades Socioemocionales)
 @router.put("/admin/solicitudes/{solicitud_id}", dependencies=[Depends(VerificarRol(["Habilidades Socioemocionales"]))])
 def procesar_solicitud(solicitud_id: int, datos: ProcesarSolicitud, usuario_actual: dict = Depends(obtener_usuario_actual)):
     if datos.estado not in ['Aprobada', 'Rechazada']:
@@ -78,11 +78,11 @@ def procesar_solicitud(solicitud_id: int, datos: ProcesarSolicitud, usuario_actu
         cur.execute(
             """UPDATE solicitudes_inasistencia 
                SET estado = %s, 
-                   observaciones = %s, 
+                   observaciones_socioemocional = %s, 
                    fecha_revision = NOW(), 
                    revisado_por = %s
                WHERE id = %s RETURNING id;""",
-            (datos.estado, datos.observaciones, usuario_actual["user_id"], solicitud_id)
+            (datos.estado, datos.observaciones_socioemocional, usuario_actual["user_id"], solicitud_id)
         )
         resultado = cur.fetchone()
         conn.commit()
@@ -95,3 +95,31 @@ def procesar_solicitud(solicitud_id: int, datos: ProcesarSolicitud, usuario_actu
         return {"mensaje": f"Solicitud {datos.estado.lower()} con éxito"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error al procesar solicitud: {str(e)}")
+
+
+# 4. Eliminar Solicitud (Solo permitido para Habilidades Socioemocionales)
+@router.delete("/admin/solicitudes/{solicitud_id}", dependencies=[Depends(VerificarRol(["Habilidades Socioemocionales"]))])
+def eliminar_solicitud(solicitud_id: int):
+    try:
+        conn = get_db_connection()
+        cur = conn.cursor()
+        
+        # Ejecuta la consulta de borrado directo
+        cur.execute(
+            "DELETE FROM solicitudes_inasistencia WHERE id = %s RETURNING id;",
+            (solicitud_id,)
+        )
+        resultado = cur.fetchone()
+        conn.commit()
+        cur.close()
+        conn.close()
+        
+        # Si el RETURNING id no trajo nada, significa que esa solicitud no existía en la base de datos
+        if not resultado:
+            raise HTTPException(status_code=404, detail="Solicitud no encontrada.")
+            
+        return {"mensaje": f"Solicitud {solicitud_id} eliminada exitosamente"}
+    except HTTPException as he:
+        raise he
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error al eliminar la solicitud: {str(e)}")

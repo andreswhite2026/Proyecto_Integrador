@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.routers import auth, solicitudes
+from app.routers.clanes import router as clanes_router
+
 
 app = FastAPI(title="AfkCoders API")
 
@@ -16,3 +18,5 @@ app.add_middleware(
 # Conexión modular con APIRouter
 app.include_router(auth.router)
 app.include_router(solicitudes.router)
+app.include_router(clanes_router)
+

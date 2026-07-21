@@ -117,3 +117,81 @@ Backend/
 
 * Integración de almacenamiento de archivos en la nube (ej. AWS S3) para procesar los adjuntos binarios reales (`UploadFile`) en lugar de strings de URLs fijas.
 * Conexión completa de los scripts `fetch` del cliente Frontend en Vanilla JS.
+
+
+🔑 Cuentas de Prueba Registradas
+1. Rol: Habilidades Socioemocionales (Administrador / TL)
+Email: nuevoadmin@example.com
+Password: adminpassword123
+Nota: Este es el usuario que sirve para usar los métodos GET, PUT y DELETE.
+
+2. Rol: Coder (Alumno)
+Email: coder_test@example.com
+Password: coderpassword123
+Nota: Este usuario lo usamos para crear inasistencias en el método POST.
+
+
+💡 Recordatorio de uso rápido en Swagger 
+Ejecutar el endpoint POST /api/auth/login con cualquiera de las dos cuentas de arriba según lo que se quiera probar
+Copia todo el texto largo del "access_token".
+Haz clic en el candado verde Authorize arriba del todo, pega el token en el campo Value y presiona Authorize.
+
+
+
+
+
+## 🛡️ Módulo de Clanes (Administración)
+
+Este módulo permite gestionar de forma completa los Clanes de la plataforma. Por motivos de seguridad y consistencia en los reportes, **todas las rutas de este módulo están protegidas** y solo pueden ser ejecutadas por usuarios autenticados con el rol de `Habilidades Socioemocionales` (TL / Administrador).
+
+### 🛣️ Endpoints Disponibles
+
+| Método | Endpoint | Descripción | Rol Requerido |
+| :--- | :--- | :--- | :--- |
+| `GET` | `/api/admin/clanes` | Listar todos los clanes registrados en el sistema. | Habilidades Socioemocionales |
+| `POST` | `/api/admin/clanes` | Registrar un nuevo clan (Valida duplicados). | Habilidades Socioemocionales |
+| `PUT` | `/api/admin/clanes/{clan_id}` | Actualizar el nombre de un clan existente mediante su ID. | Habilidades Socioemocionales |
+| `DELETE` | `/api/admin/clanes/{clan_id}` | Eliminar un clan de forma definitiva mediante su ID. | Habilidades Socioemocionales |
+
+---
+
+### 📋 Ejemplos de Uso (Estructura de Datos)
+
+#### 1. Estructura de Respuesta para Lectura (`GET`)
+Cuando el administrador solicita la lista de clanes, el servidor retorna un arreglo de objetos con la siguiente estructura directa de PostgreSQL:
+```json
+[
+  {
+    "id": 1,
+    "nombre": "Clan Magdalena",
+    "fecha_creacion": "2026-07-21T15:30:00"
+  },
+  {
+    "id": 2,
+    "nombre": "Clan Esthercita",
+    "fecha_creacion": "2026-07-21T15:30:00"
+  }
+]
+```
+
+#### 2. Estructura de Petición para Creación y Edición (`POST` / `PUT`)
+Para registrar o actualizar un clan, se debe enviar obligatoriamente un JSON en el cuerpo de la solicitud (`Request Body`) con el siguiente formato:
+```json
+{
+  "nombre": "Clan Cayena"
+}
+```
+
+#### 3. Respuestas de Éxito comunes
+* **Creación exitosa (`200 OK`):** `{"mensaje": "Clan creado exitosamente", "id": 7}`
+* **Actualización exitosa (`200 OK`):** `{"mensaje": "Clan 7 actualizado con éxito"}`
+* **Eliminación exitosa (`200 OK`):** `{"mensaje": "Clan 7 eliminado exitosamente"}`
+
+---
+
+### ⚠️ Respuestas de Error Controladas
+
+* **`401 Unauthorized` (`"Not authenticated"`):** Se genera si no se envía el `access_token` JWT en las cabeceras de la petición (`Authorization: Bearer <token>`).
+* **`403 Forbidden` (`"No tienes los permisos de rol requeridos..."`):** Se genera de inmediato si un usuario con rol de `Coder` intenta alterar o consultar la configuración de los clanes.
+* **`400 Bad Request` (`"El nombre del clan ya está registrado."`):** Control de duplicados en el backend que evita colisiones de nombres únicos en la base de datos.
+* **`404 Not Found` (`"Clan no encontrado."`):** Se arroja en peticiones `PUT` o `DELETE` si el `clan_id` enviado en la ruta no existe en la tabla de PostgreSQL.
