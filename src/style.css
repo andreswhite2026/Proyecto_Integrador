@@ -1,0 +1,12 @@
+/* Importa Tailwind CSS v4 */
+@import "tailwindcss";
+
+/* Estilos globales adicionales */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+}

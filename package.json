@@ -1,0 +1,22 @@
+{
+  "name": "gestion-inasistencias-riwi",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "client": "vite",
+    "server": "json-server --watch db.json --port 3000",
+    "dev": "concurrently \"npm run client\" \"npm run server\"",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^6.3.5"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.3.0",
+    "concurrently": "^10.0.3",
+    "json-server": "^1.0.0-beta.15",
+    "tailwindcss": "^4.3.0"
+  }
+}
